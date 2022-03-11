@@ -5,7 +5,9 @@ namespace App\Http\Controllers\API;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserUpdateRequest;
 
 class UserAPIController extends Controller
 {
@@ -51,8 +53,10 @@ class UserAPIController extends Controller
         ]);
     }
 
-    public function update(Request $request, User $user)
+    public function update(UserUpdateRequest $request, User $user)
     {
+        $validated = $request->validated();
+
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
@@ -71,11 +75,7 @@ class UserAPIController extends Controller
 
     public function show(Request $request, User $user)
     {
-        return response()->json([
-            'success' => true,
-            'message' => 'successful show user',
-            'data' => $user
-        ]);
+        return new UserResource($user);
     }
 
     public function destroy(User $user)
