@@ -13,17 +13,19 @@ class UserAPIController extends Controller
 {
     public function index(Request $request)
     {
-        $users = User::paginate(5);
+        // $users = User::paginate(5);
 
-        if($request->name)
-        {
-            $users = $users->where('name', $request->name);
-        }
+        // if($request->name)
+        // {
+        //     $users = $users->where('name', 'LIKE','%', $request->name);
+        // } 
         
-        if($request->email)
-        {
-            $users = $users->where('email', $request->email);
-        }
+        // if($request->email)
+        // {
+        //     $users = $users->where('email', $request->email);
+        // }
+
+        $users = User::whereLike('name', $request->name)->orWhereLike('email',$request->email)->paginate(5);
 
         return response()->json([
             'success' => true,
