@@ -19,8 +19,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::middleware('auth:api')->get('/fetch/users', [App\Http\Controllers\API\UserAPIController::class, 'index']);
-
 Route::middleware('auth:api')->prefix('v1')->group(function(){
 
     Route::get('/users', [UserAPIController::class,'index']);
