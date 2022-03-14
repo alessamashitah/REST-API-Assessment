@@ -18,7 +18,7 @@ class UserAPIController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'successful fetch all user',
-            'data' => $users,
+            'data' => $users
         ]);
     }
 
